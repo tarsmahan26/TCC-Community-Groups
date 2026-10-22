@@ -1,0 +1,807 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="New Testament passages and selected Proverbs on treating one another, handling conflict, and living among unbelievers, organized by situation and topic, with every reference linked to the ESV.">
+<style>
+  :root { color-scheme: light; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+  body { margin: 0; }
+  img { max-width: 100%; }
+  [hidden] { display: none !important; }
+</style>
+<title>One Another Index</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400..600&display=swap">
+<style>
+/* Layout: a pocket concordance. Home is a table of contents (situations, then categories that open
+   into topics). A topic opens as a short page: key passages first, then Gospels / Acts / Letters,
+   each passage a compact row that expands in place. Category color is the only color. */
+:root {
+  --paper: #F4F5F1; --card: #FFFFFF; --ink: #17201D; --ink-2: #4F5A56; --ink-3: #6F7A76;
+  --rule: #DCE1DB; --rule-2: #C5CDC6;
+  --oa: #44703A; --oa-soft: #E3EDDB;
+  --cf: #8A2E50; --cf-soft: #F3E1E8;
+  --un: #265887; --un-soft: #DFE9F3;
+  --key: #6E520A; --key-soft: #F4EAC9;
+  --warn: #9A3412; --warn-soft: #FAE5DA;
+  --focus: #265887;
+  --f-display: "Literata", Georgia, "Times New Roman", serif;
+  --f-body: "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0F1412; --card: #161C1A; --ink: #E5EAE7; --ink-2: #B2BCB8; --ink-3: #8D9894;
+    --rule: #26302C; --rule-2: #36423D;
+    --oa: #95C47F; --oa-soft: #1B2717;
+    --cf: #E79DBB; --cf-soft: #2C1821;
+    --un: #8EBDE8; --un-soft: #14222E;
+    --key: #E4C76E; --key-soft: #2A2412;
+    --warn: #F3A27C; --warn-soft: #2D1B13;
+    --focus: #8EBDE8;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0F1412; --card: #161C1A; --ink: #E5EAE7; --ink-2: #B2BCB8; --ink-3: #8D9894;
+  --rule: #26302C; --rule-2: #36423D;
+  --oa: #95C47F; --oa-soft: #1B2717;
+  --cf: #E79DBB; --cf-soft: #2C1821;
+  --un: #8EBDE8; --un-soft: #14222E;
+  --key: #E4C76E; --key-soft: #2A2412;
+  --warn: #F3A27C; --warn-soft: #2D1B13;
+  --focus: #8EBDE8;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+html.locked, html.locked body { overflow: hidden; }
+body { background: var(--paper); color: var(--ink); font-family: var(--f-body); font-size: 16px; line-height: 1.5; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--paper); }
+button, input, select, textarea { font: inherit; color: inherit; }
+button { -webkit-tap-highlight-color: transparent; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: 4px; }
+.wrap { max-width: 760px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.chev { flex: none; color: var(--ink-3); }
+[aria-expanded="true"] .chev { transform: rotate(90deg); }
+.cdot { width: 12px; height: 12px; border-radius: 50%; flex: none; }
+.c-oa .cdot, .dot-oa { background: var(--oa); }
+.c-cf .cdot, .dot-cf { background: var(--cf); }
+.c-un .cdot, .dot-un { background: var(--un); }
+
+/* Masthead */
+.mast { padding-block: 28px 14px; }
+.eyebrow { margin: 0 0 12px; display: flex; align-items: center; gap: 10px; font-size: 12.5px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); }
+.marks { display: inline-flex; gap: 4px; }
+.marks i { width: 9px; height: 9px; border-radius: 2px; display: block; }
+.marks i:nth-child(1) { background: var(--oa); }
+.marks i:nth-child(2) { background: var(--cf); }
+.marks i:nth-child(3) { background: var(--un); }
+h1 { font: 600 clamp(34px, 8.5vw, 48px)/1.04 var(--f-display); margin: 0; letter-spacing: -.015em; text-wrap: balance; }
+.lede { font-size: 17px; color: var(--ink-2); margin: 10px 0 0; max-width: 56ch; text-wrap: pretty; }
+.stats { margin: 12px 0 0; font-size: 14.5px; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+.stats b { color: var(--ink); }
+
+/* Sticky bar */
+.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--paper); border-bottom: 1px solid var(--rule); }
+.bar-in { padding-block: 10px; display: flex; gap: 8px; align-items: stretch; }
+.search { flex: 1; min-width: 0; display: flex; align-items: center; gap: 8px; background: var(--card); border: 1px solid var(--rule-2); border-radius: 10px; padding: 0 10px; }
+.search svg { flex: none; color: var(--ink-3); }
+.search input { flex: 1; min-width: 0; border: 0; background: none; padding: 10px 0; font-size: 16px; outline: none; }
+.search:focus-within { border-color: var(--focus); box-shadow: 0 0 0 1px var(--focus); }
+.tool { flex: none; border: 1px solid var(--rule-2); background: var(--card); border-radius: 10px; padding: 0 12px; font-size: 14.5px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; min-height: 44px; }
+.tool .n { min-width: 20px; height: 20px; padding: 0 6px; border-radius: 10px; background: var(--ink); color: var(--paper); font-size: 12px; display: inline-flex; align-items: center; justify-content: center; font-variant-numeric: tabular-nums; }
+.tool[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.tool[aria-pressed="true"] .n { background: var(--paper); color: var(--ink); }
+
+/* Index: situations, categories, topics */
+.ix-sec { padding-block: 16px 2px; }
+.ix-h { margin: 0 0 10px; font-size: 12.5px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); }
+.sits { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.sit { min-width: 0; text-align: left; padding: 11px 12px; background: var(--card); border: 1px solid var(--rule); border-radius: 12px; cursor: pointer; display: grid; gap: 3px; align-content: start; }
+.sit b { font-size: 15px; line-height: 1.25; }
+.sit small { font-size: 12.5px; color: var(--ink-3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sit:hover, .acc:hover, .more-links:hover { border-color: var(--rule-2); }
+.accs { display: grid; gap: 8px; }
+.acc { background: var(--card); border: 1px solid var(--rule); border-radius: 12px; overflow: hidden; }
+.acc-head { width: 100%; display: grid; grid-template-columns: 12px minmax(0, 1fr) auto; align-items: center; gap: 12px; padding: 14px; background: none; border: 0; text-align: left; cursor: pointer; }
+.acc-txt b { display: block; font-size: 17px; line-height: 1.25; }
+.acc-txt small { display: block; color: var(--ink-3); font-size: 13.5px; font-variant-numeric: tabular-nums; }
+.acc-desc { margin: 0; padding: 0 14px 12px 38px; color: var(--ink-2); font-size: 14.5px; }
+.trow { width: 100%; display: flex; align-items: center; gap: 10px; min-height: 48px; padding: 11px 14px 11px 38px; background: none; border: 0; border-top: 1px solid var(--rule); text-align: left; cursor: pointer; font-size: 15.5px; line-height: 1.3; }
+.trow > span:first-child { flex: 1; min-width: 0; }
+.trow small { display: block; color: var(--ink-3); font-size: 13px; }
+.trow:hover { background: var(--paper); }
+.tn { color: var(--ink-3); font-size: 13.5px; font-variant-numeric: tabular-nums; }
+.more-links { background: var(--card); border: 1px solid var(--rule); border-radius: 12px; overflow: hidden; }
+.more-links .trow { padding-left: 14px; }
+.more-links .trow:first-child { border-top: 0; }
+
+/* Topic / list pages */
+.lhead { padding-block: 10px 4px; display: grid; gap: 6px; }
+.back { justify-self: start; display: inline-flex; align-items: center; gap: 2px; border: 0; background: none; padding: 6px 8px 6px 0; min-height: 40px; font-weight: 700; font-size: 15px; color: var(--ink-2); cursor: pointer; }
+.leyebrow { margin: 2px 0 0; display: flex; align-items: center; gap: 8px; font-size: 12.5px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); }
+.leyebrow .cdot { width: 9px; height: 9px; }
+.ltitle { margin: 0; font: 600 clamp(28px, 7vw, 36px)/1.1 var(--f-display); letter-spacing: -.01em; text-wrap: balance; overflow-wrap: anywhere; }
+.ldesc { margin: 0; color: var(--ink-2); max-width: 60ch; }
+.ltopics { margin: 0; font-size: 14.5px; color: var(--ink-3); }
+.tlink { border: 0; background: none; padding: 0; font-weight: 700; color: var(--ink); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.lstats { margin: 2px 0 0; color: var(--ink-3); font-size: 14.5px; font-variant-numeric: tabular-nums; }
+.lstats b { color: var(--ink); }
+.fchips { display: flex; gap: 6px; overflow-x: auto; padding: 6px 0 2px; scrollbar-width: none; }
+.fchips::-webkit-scrollbar { display: none; }
+.fchip { flex: none; border: 1px solid var(--rule-2); background: var(--card); border-radius: 999px; padding: 7px 12px; font-size: 14px; cursor: pointer; }
+.fchip[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--paper); font-weight: 700; }
+.mtopics { display: flex; flex-wrap: wrap; gap: 6px; }
+.mt { border: 1px solid var(--rule-2); background: var(--card); border-radius: 999px; padding: 6px 12px; font-size: 14px; cursor: pointer; display: inline-flex; align-items: center; gap: 7px; }
+.mt .cdot { width: 8px; height: 8px; }
+.lactions { display: flex; flex-wrap: wrap; gap: 8px; padding-top: 4px; }
+.copybox { display: grid; gap: 6px; padding-top: 10px; }
+.copybox label { font-size: 12.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); }
+.copybox textarea { width: 100%; min-height: 160px; padding: 10px; border: 1px solid var(--rule-2); border-radius: 10px; background: var(--card); font-size: 14px; line-height: 1.4; }
+
+.grp { margin-top: 18px; }
+.grp-head { width: 100%; display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 8px 0; background: none; border: 0; border-bottom: 1.5px solid var(--ink); cursor: pointer; text-align: left; }
+.grp-name { flex: 1; min-width: 0; font-size: 12.5px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+.grp-name small { margin-left: 6px; font-size: 13px; font-weight: 400; letter-spacing: 0; text-transform: none; color: var(--ink-3); }
+.grp-n { color: var(--ink-3); font-size: 13.5px; font-variant-numeric: tabular-nums; }
+.grp.start .grp-head { border-bottom-color: var(--key); }
+.grp.start .grp-name { color: var(--key); }
+.grp-intro { margin: 10px 0 0; font-size: 14px; font-style: italic; color: var(--ink-3); max-width: 62ch; }
+.morekeys { width: 100%; min-height: 44px; padding: 10px 0; border: 0; border-bottom: 1px solid var(--rule); background: none; text-align: left; font-weight: 700; font-size: 14.5px; color: var(--key); cursor: pointer; }
+
+.row { border-bottom: 1px solid var(--rule); }
+.row-head { width: 100%; display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 10px; align-items: center; padding: 11px 0; background: none; border: 0; text-align: left; cursor: pointer; }
+.row-txt { display: grid; gap: 2px; min-width: 0; }
+.row-ref { font-size: 13.5px; font-weight: 700; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.row-ref em { margin-left: 6px; font-style: normal; font-size: 12px; color: var(--warn); }
+.row-title { font: 600 16.5px/1.3 var(--f-display); color: var(--ink); }
+.row-icons { display: inline-flex; align-items: center; gap: 6px; }
+.row-mark { visibility: hidden; color: var(--key); }
+.row.is-saved .row-mark { visibility: visible; }
+.row-body { padding: 0 0 16px; display: grid; gap: 10px; }
+
+/* Passage detail */
+.badges { display: flex; flex-wrap: wrap; gap: 6px; }
+.badge { font-size: 12px; line-height: 1; padding: 4px 7px; border-radius: 6px; border: 1px solid var(--rule-2); color: var(--ink-3); white-space: nowrap; }
+.badge.key { background: var(--key-soft); border-color: transparent; color: var(--key); font-weight: 700; }
+.badge.warn { background: var(--warn-soft); border-color: transparent; color: var(--warn); font-weight: 700; }
+.sum { margin: 0; color: var(--ink-2); max-width: 65ch; text-wrap: pretty; }
+.note { margin: 0; font-size: 14px; font-style: italic; color: var(--ink-3); }
+.tags { display: flex; flex-wrap: wrap; gap: 4px 14px; }
+.tag { border: 0; background: none; padding: 3px 0; font-size: 13.5px; color: var(--ink-2); cursor: pointer; display: inline-flex; align-items: center; gap: 6px; text-align: left; }
+.tag::before { content: ""; width: 8px; height: 8px; border-radius: 50%; flex: none; }
+.tag.t-oa::before { background: var(--oa); }
+.tag.t-cf::before { background: var(--cf); }
+.tag.t-un::before { background: var(--un); }
+.tag:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+.also { margin: 0; font-size: 14px; color: var(--ink-3); }
+.also a { color: var(--ink-2); text-underline-offset: 3px; }
+.actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.btn { display: inline-flex; align-items: center; gap: 7px; min-height: 42px; padding: 8px 14px; border-radius: 9px; border: 1px solid var(--rule-2); background: var(--card); color: var(--ink); font-size: 14.5px; font-weight: 700; line-height: 1.15; text-decoration: none; cursor: pointer; }
+.btn.esv { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+.btn.save[aria-pressed="true"] { background: var(--key-soft); border-color: var(--key); color: var(--key); }
+.btn svg { flex: none; }
+.empty { padding-block: 36px; text-align: center; color: var(--ink-2); }
+.empty p { margin: 0 0 12px; }
+
+/* Topics sheet */
+.sheet { position: fixed; inset: 0; z-index: 30; background: var(--paper); overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; padding-bottom: env(safe-area-inset-bottom, 0px); }
+.sheet-top { position: sticky; top: 0; z-index: 1; background: var(--paper); border-bottom: 1px solid var(--rule); padding-top: env(safe-area-inset-top, 0px); }
+.sheet-top-in { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-block: 10px; }
+.sheet-top h2 { margin: 0; font: 600 22px/1.2 var(--f-display); }
+.sheet-body { padding-bottom: 32px; }
+
+/* About */
+.about { margin-top: 32px; padding-block: 22px 48px; border-top: 1.5px solid var(--ink); }
+.about h2 { font: 600 24px/1.2 var(--f-display); margin: 0 0 14px; }
+.about h3 { font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3); margin: 18px 0 6px; }
+.about p { margin: 0 0 8px; color: var(--ink-2); max-width: 64ch; }
+.about a { color: var(--ink); text-underline-offset: 3px; }
+
+#toast { position: fixed; left: 50%; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); z-index: 40; background: var(--ink); color: var(--paper); padding: 10px 16px; border-radius: 10px; font-weight: 700; font-size: 14.5px; max-width: calc(100% - 32px); }
+
+@media (max-width: 370px) {
+  .tool { padding: 0 9px; }
+  .tool .lbl-long { display: none; }
+  .sits { grid-template-columns: minmax(0, 1fr); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .chev { transition: transform .15s; }
+  .fchip, .tool, .btn { transition: background-color .15s, border-color .15s, color .15s; }
+}
+</style>
+</head>
+<body>
+
+<header class="wrap mast" id="mast">
+  <p class="eyebrow"><span class="marks" aria-hidden="true"><i></i><i></i><i></i></span>New Testament &amp; Proverbs · read in the ESV</p>
+  <h1>One Another Index</h1>
+  <p class="lede">What the New Testament teaches and shows about treating one another, handling conflict, and living among unbelievers, with selected wisdom from Proverbs.</p>
+  <p class="stats"><b>__NTCOUNT__</b> New Testament passages covering <b>__NTVERSES__</b> of its __NTTOTAL__ verses · <b>__PROVCOUNT__</b> proverbs · 36 topics</p>
+</header>
+
+<div class="bar" id="bar">
+  <div class="wrap bar-in">
+    <label class="search">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
+      <input id="q" type="search" placeholder="Search: forgive, anger, Romans 12" autocomplete="off" enterkeyhint="search" aria-label="Search passages and topics">
+    </label>
+    <button type="button" class="tool" id="btn-topics" aria-haspopup="dialog" aria-controls="sheet">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"></path></svg>Topics
+    </button>
+    <button type="button" class="tool" id="btn-saved" aria-pressed="false" aria-label="Saved passages">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12v18l-6-4-6 4z"></path></svg><span class="lbl-long">Saved</span><span class="n" id="scount">0</span>
+    </button>
+  </div>
+</div>
+
+<main class="wrap" id="main"></main>
+
+<footer class="wrap about" id="about">
+  <h2>How this index works</h2>
+  <h3>What's included</h3>
+  <p>Passages that teach or show how believers should treat one another, handle conflict, and relate to unbelievers, opponents and governing authorities. Stories count, including cautionary ones, and so do household and workplace instructions. Passages about doctrine, the end times or private devotion are left out unless the text itself draws a point about how to treat people.</p>
+  <p>Each passage carries one to three topics, so many appear under more than one. Key passages are the ones a group leader should know first, and each topic lists them at the top.</p>
+  <h3>About the proverbs</h3>
+  <p>Proverbs is a selection, not the whole book: only sayings that speak directly to relationships, conflict and outsiders, chosen for small-group use. They sit in their own section under each topic, after the New Testament. Proverbs describe how life usually works. They are wisdom rather than promises, and some pull against each other on purpose, like 26:4–5. Where the New Testament quotes or echoes a proverb, the two link to each other.</p>
+  <h3>Using it with your group</h3>
+  <p>Start from a situation or a topic, tap a passage to see its summary, and save the ones you want to discuss. Then open Saved and copy the list into your group chat. Every reference in the copied list links to the passage on ESV.org. Your saved list stays on this device.</p>
+  <h3>About the text</h3>
+  <p>Scripture opens in the English Standard Version at <a href="https://www.esv.org" target="_blank" rel="noopener">ESV.org</a>, published by Crossway. References follow ESV verse numbering. The titles and summaries here are study aids written for this index, not Scripture, so read each passage itself before teaching from it.</p>
+</footer>
+
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title" hidden>
+  <div class="sheet-top"><div class="wrap sheet-top-in"><h2 id="sheet-title">Topics</h2><button type="button" class="tool" id="sheet-close">Close</button></div></div>
+  <div class="wrap sheet-body" id="sheet-body"></div>
+</div>
+
+<div id="toast" role="status" aria-live="polite" hidden></div>
+
+<script type="application/json" id="oai-data">__DATA__</script>
+<script>
+(() => {
+  'use strict';
+  const $ = (s, root) => (root || document).querySelector(s);
+  const D = JSON.parse($('#oai-data').textContent);
+  const E = D.entries, BOOKS = D.books, BLANK = D.blank;
+  const byId = new Map(E.map((e) => [e.id, e]));
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const CATS = {
+    oa: { name: 'One Another', desc: 'How believers treat each other, at church, at home and at work.' },
+    cf: { name: 'Conflict', desc: 'Offense, anger, quarrels, division, discipline, forgiveness and peace.' },
+    un: { name: 'Unbelievers', desc: 'Witness, conduct, enemies, persecution, government, and family who do not believe.' }
+  };
+  const THEMES = {
+    'oa.love': ['Love', 'Loving one another, brotherly affection, and love for neighbor.'],
+    'oa.friendship': ['Friendship', 'Being a true friend: loyalty in hard times, honest counsel, and sharpening each other.'],
+    'oa.humility': ['Humility & honor', 'Putting others first, honoring them, and not chasing status.'],
+    'oa.serve': ['Serving', 'Serving, bearing burdens, and using gifts for others.'],
+    'oa.encourage': ['Encouragement', 'Encouraging, comforting and building each other up.'],
+    'oa.generosity': ['Hospitality & generosity', 'Sharing, giving to needs, and welcoming guests and strangers.'],
+    'oa.unity': ['Unity & acceptance', 'One mind and one body, accepting each other across differences.'],
+    'oa.patience': ['Patience & gentleness', 'Bearing with one another in kindness, compassion and gentleness.'],
+    'oa.speech': ['Speech', 'Truthful, gracious words, with no lying, slander, gossip or grumbling.'],
+    'oa.accountability': ['Teaching & correction', 'Teaching, admonishing and gently correcting one another.'],
+    'oa.prayer': ['Prayer & confession', 'Praying for one another and confessing sins to each other.'],
+    'oa.impartiality': ['No favoritism', 'Treating people alike regardless of wealth, status or background.'],
+    'oa.leaders': ['Leaders', 'How leaders serve the church, and how the church treats its leaders.'],
+    'oa.household': ['Home & work', 'Marriage, parents and children, masters and workers, family duty.'],
+    'cf.forgiveness': ['Forgiveness', 'Forgiving others as God has forgiven you.'],
+    'cf.confront': ['Going to them', 'Talking to the person privately, and reconciling before worship.'],
+    'cf.restore': ['Restoration & discipline', 'Restoring someone who sinned, church discipline, and welcoming the repentant back.'],
+    'cf.anger': ['Anger', 'Anger, bitterness, and self-control in conflict.'],
+    'cf.quarrels': ['Quarrels & words', 'Fights, harsh words, and pointless controversies.'],
+    'cf.judging': ['Judging', 'Judging others, disputable matters, and the log and the speck.'],
+    'cf.division': ['Divisions', 'Factions, rivalry and party spirit in the church.'],
+    'cf.revenge': ['No revenge', 'Not repaying evil for evil, and overcoming evil with good.'],
+    'cf.peacemaking': ['Peacemaking', 'Pursuing peace and living at peace with others.'],
+    'cf.disputes': ['Disputes & grievances', 'Complaints, lawsuits, accusations, and how disagreements were settled.'],
+    'cf.divisive': ['Divisive people', 'How to respond to divisive people and false teachers.'],
+    'un.witness': ['Sharing the gospel', 'Telling others about Christ and being sent into the world.'],
+    'un.conduct': ['Conduct before outsiders', 'Living so outsiders see good and have nothing to accuse.'],
+    'un.answer': ['Answering with grace', 'Gracious, gentle answers and defending the faith with respect.'],
+    'un.enemies': ['Loving enemies', 'Loving enemies, blessing those who curse you, praying for persecutors.'],
+    'un.persecution': ['Persecution', 'Responding to hostility and suffering for the faith.'],
+    'un.authorities': ['Government', 'Submitting to rulers, paying taxes, praying for leaders, obeying God first.'],
+    'un.good': ['Doing good to all', 'Doing good to everyone and showing mercy to people in need.'],
+    'un.engaging': ['Crossing barriers', 'Eating with sinners and crossing ethnic and social lines.'],
+    'un.family': ['Unbelieving family', 'Unbelieving spouses and relatives, and binding partnerships.'],
+    'un.rejection': ['When rejected', 'When the message or the messenger is turned away.'],
+    'un.boundaries': ['Boundaries', 'In the world but not of it, bad company, and not joining in darkness.']
+  };
+  const SITS = [
+    { id: 'wronged', name: 'Someone wronged me', th: ['cf.forgiveness', 'cf.revenge', 'cf.confront'], desc: 'Forgiving, refusing to pay back, and going to the person.' },
+    { id: 'at-odds', name: 'Two people are at odds', th: ['cf.peacemaking', 'cf.disputes'], desc: 'Making peace and settling disagreements between people.' },
+    { id: 'correcting', name: 'Correcting someone', th: ['cf.restore', 'oa.accountability'], desc: 'Restoring someone who has sinned, and correcting with gentleness.' },
+    { id: 'gray-areas', name: 'Disagreeing on gray areas', th: ['cf.judging'], desc: 'Judging, disputable matters, and leaving room for different convictions.' },
+    { id: 'sharp-words', name: 'Anger and sharp words', th: ['cf.anger', 'cf.quarrels'], desc: 'Anger, quarrels, and words that wound.' },
+    { id: 'causing-division', name: 'Someone causing division', th: ['cf.divisive', 'cf.division'], desc: 'Factions in the church and the people who stir them up.' },
+    { id: 'skeptic', name: 'Talking with a skeptic', th: ['un.answer'], desc: 'Gracious, thoughtful answers to people who question the faith.' },
+    { id: 'hostility', name: 'Hostility for my faith', th: ['un.persecution', 'un.enemies'], desc: 'Persecution, mistreatment, and loving those who oppose you.' },
+    { id: 'unbelieving-family', name: "Family who don't believe", th: ['un.family'], desc: "A spouse or relatives who don't share your faith." },
+    { id: 'leading', name: 'Leading the group well', th: ['oa.leaders'], desc: 'How leaders serve, correct and care for the people in their charge.' }
+  ];
+  const SECTIONS = [
+    { name: 'Gospels', note: "Jesus' teaching and example", has: (bk) => bk <= 3 },
+    { name: 'Acts', note: 'the early church', has: (bk) => bk === 4 },
+    { name: 'Letters', note: 'Romans to Jude', has: (bk) => bk >= 5 && bk <= 25 },
+    { name: 'Revelation', note: '', has: (bk) => bk === 26 },
+    { name: 'Proverbs', note: 'wisdom sayings', has: (bk) => bk === 27 }
+  ];
+  const TYPES = { t: 'Teaching', e: 'Example', p: 'Parable', v: 'Proverb' };
+  const PROV = BOOKS.indexOf('Proverbs');
+  const PROV_NOTE = 'Proverbs describe how life usually works. They are wisdom, not promises, and some pull against each other on purpose (26:4–5).';
+  const COLLAPSE_OVER = 24;
+
+  for (const e of E) {
+    e.cats = [...new Set(e.th.map((t) => t.slice(0, 2)))];
+    e.hay = [e.d, BOOKS[e.bk], e.t, e.s, TYPES[e.ty], ...e.th.map((t) => THEMES[t][0])]
+      .join(' ').toLowerCase().replace(/[–—]/g, '-');
+  }
+  const themeCount = {}, catCount = { oa: 0, cf: 0, un: 0 };
+  for (const e of E) {
+    for (const t of e.th) themeCount[t] = (themeCount[t] || 0) + 1;
+    for (const c of e.cats) catCount[c]++;
+  }
+  const keyCount = E.filter((e) => e.f.includes('K')).length;
+  const provCount = E.filter((e) => e.bk === PROV).length;
+  const SLUG = {};
+  for (const t of Object.keys(THEMES)) SLUG[t.split('.')[1]] = t;
+
+  let saved = new Set();
+  try {
+    const raw = localStorage.getItem('oai.saved');
+    if (raw) saved = new Set(JSON.parse(raw).filter((id) => byId.has(id)));
+  } catch (_) { /* storage unavailable: start empty */ }
+  const persist = () => { try { localStorage.setItem('oai.saved', JSON.stringify([...saved])); } catch (_) {} };
+
+  const F = { type: 'all', jesus: false };
+  const open = { home: null, sheet: null };
+  let view = { kind: 'home' }, prevView = null, homeScroll = 0;
+  let groupItems = new Map();
+
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const esvUrl = (q) => 'https://www.esv.org/verses/' + encodeURIComponent(q) + '/';
+  const fmt = (n) => n.toLocaleString('en-US');
+  const plural = (n, one, many) => fmt(n) + ' ' + (n === 1 ? one : many);
+
+  const CHEV = '<svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"></path></svg>';
+  const ICON_OUT = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6"></path><path d="M20 4 10 14"></path><path d="M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"></path></svg>';
+  const ICON_MARK = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12v18l-6-4-6 4z"></path></svg>';
+  const ICON_MARKED = '<svg class="row-mark" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-label="Saved"><path d="M6 3h12v18l-6-4-6 4z"></path></svg>';
+
+  function verseCount(items) {
+    const iv = items.map((e) => [e.a, e.b]).sort((x, y) => x[0] - y[0]);
+    const merged = [];
+    for (const [a, b] of iv) {
+      const last = merged[merged.length - 1];
+      if (last && a <= last[1] + 1) last[1] = Math.max(last[1], b);
+      else merged.push([a, b]);
+    }
+    let total = 0;
+    for (const [a, b] of merged) {
+      total += b - a + 1;
+      for (const x of BLANK) if (x >= a && x <= b) total--;
+    }
+    return total;
+  }
+
+  /* ---------- Index (home and sheet) ---------- */
+  function indexHTML(where) {
+    const sits = SITS.map((s) =>
+      '<button type="button" class="sit" data-go="sit:' + s.id + '"><b>' + esc(s.name) + '</b>' +
+      '<small>' + s.th.map((t) => esc(THEMES[t][0])).join(' · ') + '</small></button>').join('');
+    const accs = Object.keys(CATS).map((c) => {
+      const on = open[where] === c;
+      const topics = Object.keys(THEMES).filter((t) => t.startsWith(c + '.'));
+      const id = where + '-acc-' + c;
+      return '<div class="acc c-' + c + '">' +
+        '<button type="button" class="acc-head" data-acc="' + c + '" data-where="' + where + '" aria-expanded="' + on + '" aria-controls="' + id + '">' +
+          '<span class="cdot"></span><span class="acc-txt"><b>' + CATS[c].name + '</b><small>' + topics.length + ' topics · ' + plural(catCount[c], 'passage', 'passages') + '</small></span>' + CHEV +
+        '</button>' +
+        '<div class="acc-body" id="' + id + '"' + (on ? '' : ' hidden') + '>' +
+          '<p class="acc-desc">' + esc(CATS[c].desc) + '</p>' +
+          topics.map((t) => '<button type="button" class="trow" data-go="topic:' + t + '"><span>' + esc(THEMES[t][0]) + '</span><span class="tn">' + (themeCount[t] || 0) + '</span>' + CHEV + '</button>').join('') +
+        '</div></div>';
+    }).join('');
+    return '<section class="ix-sec"><h2 class="ix-h">Start with a situation</h2><div class="sits">' + sits + '</div></section>' +
+      '<section class="ix-sec"><h2 class="ix-h">Browse by topic</h2><div class="accs">' + accs + '</div></section>' +
+      '<section class="ix-sec"><h2 class="ix-h">More ways in</h2><div class="more-links">' +
+        '<button type="button" class="trow" data-go="key"><span>Key passages<small>The essentials to know first</small></span><span class="tn">' + keyCount + '</span>' + CHEV + '</button>' +
+        '<button type="button" class="trow" data-go="prov"><span>Proverbs by topic<small>Selected wisdom sayings</small></span><span class="tn">' + provCount + '</span>' + CHEV + '</button>' +
+        '<button type="button" class="trow" data-go="all"><span>Every passage<small>Grouped by book</small></span><span class="tn">' + fmt(E.length) + '</span>' + CHEV + '</button>' +
+      '</div></section>';
+  }
+
+  function toggleAcc(btn) {
+    const where = btn.dataset.where, c = btn.dataset.acc;
+    const root = where === 'sheet' ? $('#sheet-body') : $('#main');
+    open[where] = open[where] === c ? null : c;
+    for (const h of root.querySelectorAll('.acc-head')) {
+      const on = h.dataset.acc === open[where];
+      h.setAttribute('aria-expanded', String(on));
+      document.getElementById(h.getAttribute('aria-controls')).hidden = !on;
+    }
+    if (open[where] !== c) return;
+    const top = btn.getBoundingClientRect().top;
+    if (where === 'sheet') {
+      const sheet = $('#sheet');
+      const limit = $('.sheet-top', sheet).getBoundingClientRect().bottom + 8;
+      if (top < limit || top > window.innerHeight * 0.55) sheet.scrollTop += top - limit;
+    } else {
+      const limit = $('#bar').getBoundingClientRect().bottom + 8;
+      if (top < limit || top > window.innerHeight * 0.55) window.scrollTo({ top: window.scrollY + top - limit, behavior: reduceMotion ? 'auto' : 'smooth' });
+    }
+  }
+
+  /* ---------- List pages ---------- */
+  function itemsFor(v) {
+    switch (v.kind) {
+      case 'topic': return E.filter((e) => e.th.includes(v.id));
+      case 'sit': { const s = SITS.find((x) => x.id === v.id); return E.filter((e) => e.th.some((t) => s.th.includes(t))); }
+      case 'key': return E.filter((e) => e.f.includes('K'));
+      case 'prov': return E.filter((e) => e.bk === PROV);
+      case 'all': return E.slice();
+      case 'search': return E.filter((e) => v.toks.every((t) => e.hay.includes(t)));
+      case 'saved': return E.filter((e) => saved.has(e.id));
+      default: return [];
+    }
+  }
+  const applyF = (items) => items.filter((e) => (F.type === 'all' || e.ty === F.type) && (!F.jesus || e.f.includes('J')));
+
+  function rowHTML(e) {
+    return '<div class="row' + (saved.has(e.id) ? ' is-saved' : '') + '" data-id="' + esc(e.id) + '">' +
+      '<button type="button" class="row-head" aria-expanded="false">' +
+        '<span class="row-txt"><span class="row-ref">' + esc(e.d) + (e.f.includes('C') ? '<em>Cautionary</em>' : '') + '</span>' +
+        '<span class="row-title">' + esc(e.t) + '</span></span>' +
+        '<span class="row-icons">' + ICON_MARKED + CHEV + '</span>' +
+      '</button><div class="row-body" hidden></div></div>';
+  }
+
+  function detailHTML(e) {
+    const on = saved.has(e.id);
+    const badges = [];
+    if (e.f.includes('K')) badges.push('<span class="badge key">Key passage</span>');
+    if (e.f.includes('C')) badges.push('<span class="badge warn">Cautionary example</span>');
+    badges.push('<span class="badge">' + TYPES[e.ty] + '</span>');
+    if (e.f.includes('J')) badges.push("<span class=\"badge\">Jesus' words or example</span>");
+    const tags = e.th.map((t) => '<button type="button" class="tag t-' + t.slice(0, 2) + '" data-go="topic:' + t + '">' + esc(THEMES[t][0]) + '</button>').join('');
+    const also = (e.pl || []).map((p) => '<a href="' + esvUrl(p[1]) + '" target="_blank" rel="noopener">' + esc(p[0]) + '</a>').join(', ');
+    const xr = (e.x || []).map((x) => esc(x[0]) + ' <a href="' + esvUrl(x[2]) + '" target="_blank" rel="noopener">' + esc(x[1]) + '</a>').join(' · ');
+    return '<div class="badges">' + badges.join('') + '</div>' +
+      '<p class="sum">' + esc(e.s) + '</p>' +
+      (e.n ? '<p class="note">' + esc(e.n) + '</p>' : '') +
+      '<div class="tags">' + tags + '</div>' +
+      (also ? '<p class="also">Also in ' + also + '</p>' : '') +
+      (xr ? '<p class="also">' + xr + '</p>' : '') +
+      '<div class="actions">' +
+        '<a class="btn esv" href="' + esvUrl(e.q) + '" target="_blank" rel="noopener">Read in ESV ' + ICON_OUT + '</a>' +
+        (e.cx ? '<a class="btn" href="' + esvUrl(e.cx[1]) + '" target="_blank" rel="noopener">Whole story: ' + esc(e.cx[0]) + '</a>' : '') +
+        '<button type="button" class="btn save" data-save="' + esc(e.id) + '" aria-pressed="' + on + '">' + ICON_MARK + (on ? 'Saved' : 'Save') + '</button>' +
+      '</div>';
+  }
+
+  function groupHTML(name, note, items, isOpen, extraClass, limit, intro) {
+    const id = 'g' + groupItems.size;
+    groupItems.set(id, items);
+    let rows = '';
+    if (isOpen) {
+      const first = limit && items.length > limit + 2 ? items.slice(0, limit) : items;
+      rows = first.map(rowHTML).join('');
+      if (first.length < items.length) {
+        rows += '<button type="button" class="morekeys" data-more="' + id + '" data-from="' + first.length + '">Show ' + (items.length - first.length) + ' more key passages</button>';
+      }
+    }
+    return '<section class="grp' + (extraClass ? ' ' + extraClass : '') + '">' +
+      '<button type="button" class="grp-head" aria-expanded="' + isOpen + '" aria-controls="' + id + '">' +
+        '<span class="grp-name">' + esc(name) + (note ? '<small>' + esc(note) + '</small>' : '') + '</span>' +
+        '<span class="grp-n">' + items.length + '</span>' + CHEV +
+      '</button>' +
+      '<div class="grp-body" id="' + id + '"' + (isOpen ? '' : ' hidden') + '>' +
+        (intro ? '<p class="grp-intro">' + esc(intro) + '</p>' : '') +
+        '<div class="grp-rows">' + rows + '</div>' +
+      '</div>' +
+    '</section>';
+  }
+
+  function bodyHTML(v, items) {
+    groupItems = new Map();
+    if (!items.length) {
+      if (v.kind === 'saved') return '<div class="empty"><p>Nothing saved yet.</p><p>Tap a passage, then Save, to build a list for your group.</p></div>';
+      if (v.kind === 'search') return '<div class="empty"><p>No passages match that search.</p></div>';
+      return '<div class="empty"><p>No passages of that kind here.</p><button type="button" class="btn" data-reset-f>Show all kinds</button></div>';
+    }
+    const collapseAll = v.kind !== 'saved' && items.length > COLLAPSE_OVER;
+    if (v.kind === 'prov') {
+      // Proverbs on their own, grouped by topic (a saying with two topics appears in both).
+      let html = '';
+      for (const t of Object.keys(THEMES)) {
+        const g = items.filter((e) => e.th.includes(t));
+        if (g.length) html += groupHTML(THEMES[t][0], CATS[t.slice(0, 2)].name, g, !collapseAll);
+      }
+      return html;
+    }
+    const startHere = v.kind === 'topic' || v.kind === 'sit';
+    const isKeyNT = (e) => e.f.includes('K') && e.bk !== PROV;
+    let key = startHere ? items.filter(isKeyNT) : [];
+    const rest = startHere ? items.filter((e) => !isKeyNT(e)) : items;
+    if (v.kind === 'sit') {
+      // Key passages on the situation's first topic lead, then the second, and so on.
+      const s = SITS.find((x) => x.id === v.id);
+      const score = (e) => s.th.reduce((acc, t, i) => acc + (e.th.includes(t) ? s.th.length - i : 0), 0);
+      key = key.slice().sort((x, y) => score(y) - score(x));
+    }
+    const collapse = v.kind !== 'saved' && items.length > COLLAPSE_OVER;
+    let html = key.length ? groupHTML('Start here', 'key passages', key, true, 'start', 8) : '';
+    if (v.kind === 'all') {
+      BOOKS.forEach((name, bk) => {
+        const g = rest.filter((e) => e.bk === bk);
+        if (g.length) html += groupHTML(name, '', g, !collapse, '', 0, bk === PROV ? PROV_NOTE : '');
+      });
+    } else {
+      const parts = SECTIONS.map((s) => ({ s, items: rest.filter((e) => s.has(e.bk)) })).filter((p) => p.items.length);
+      for (const p of parts) {
+        const isProv = p.s.name === 'Proverbs';
+        // Within Proverbs, the key sayings lead.
+        const list = isProv ? p.items.filter((e) => e.f.includes('K')).concat(p.items.filter((e) => !e.f.includes('K'))) : p.items;
+        html += groupHTML(p.s.name, p.s.note, list, !collapse || parts.length === 1, isProv ? 'prov' : '', 0, isProv ? PROV_NOTE : '');
+      }
+    }
+    return html;
+  }
+
+  function filterChips() {
+    const kinds = [['all', 'All'], ['t', 'Teaching'], ['e', 'Examples'], ['p', 'Parables'], ['v', 'Proverbs']];
+    return '<div class="fchips" role="group" aria-label="Filter passages">' +
+      kinds.map(([k, l]) => '<button type="button" class="fchip" data-ftype="' + k + '" aria-pressed="' + (F.type === k) + '">' + l + '</button>').join('') +
+      '<button type="button" class="fchip" data-fjesus aria-pressed="' + F.jesus + '">Jesus\' words</button></div>';
+  }
+
+  function listPage(v) {
+    const all = itemsFor(v);
+    const items = v.kind === 'saved' ? all : applyF(all);
+    let eyebrow = '', title = '', desc = '', extra = '';
+    if (v.kind === 'topic') {
+      const c = v.id.slice(0, 2);
+      eyebrow = '<span class="cdot dot-' + c + '"></span>' + CATS[c].name;
+      title = esc(THEMES[v.id][0]);
+      desc = esc(THEMES[v.id][1]);
+    } else if (v.kind === 'sit') {
+      const s = SITS.find((x) => x.id === v.id);
+      eyebrow = 'Situation';
+      title = esc(s.name);
+      desc = esc(s.desc);
+      if (s.th.length > 1) extra = '<p class="ltopics">Topics in this list: ' + s.th.map((t) => '<button type="button" class="tlink" data-go="topic:' + t + '">' + esc(THEMES[t][0]) + '</button>').join(', ') + '</p>';
+    } else if (v.kind === 'key') {
+      eyebrow = 'All topics';
+      title = 'Key passages';
+      desc = 'The essentials a group leader should know first, across all three categories.';
+    } else if (v.kind === 'prov') {
+      eyebrow = 'Wisdom sayings';
+      title = 'Proverbs by topic';
+      desc = 'Selected proverbs for small groups, grouped by topic. ' + PROV_NOTE;
+    } else if (v.kind === 'all') {
+      eyebrow = 'All topics';
+      title = 'Every passage';
+      desc = 'All ' + fmt(E.length) + ' passages, grouped by book in New Testament order, with Proverbs last.';
+    } else if (v.kind === 'search') {
+      eyebrow = 'Search';
+      title = 'Results for ' + esc(v.q);
+      const tm = Object.keys(THEMES).filter((t) => v.toks.every((k) => (THEMES[t][0] + ' ' + THEMES[t][1]).toLowerCase().includes(k)));
+      const sm = SITS.filter((s) => v.toks.every((k) => (s.name + ' ' + s.desc).toLowerCase().includes(k)));
+      if (tm.length || sm.length) {
+        extra = '<div class="mtopics">' +
+          sm.map((s) => '<button type="button" class="mt" data-go="sit:' + s.id + '">' + esc(s.name) + '</button>').join('') +
+          tm.map((t) => '<button type="button" class="mt" data-go="topic:' + t + '"><span class="cdot dot-' + t.slice(0, 2) + '"></span>' + esc(THEMES[t][0]) + '</button>').join('') +
+        '</div>';
+      }
+    } else if (v.kind === 'saved') {
+      eyebrow = 'Your list';
+      title = 'Saved passages';
+      desc = 'Saved on this device. Copy the list to share it with your group.';
+      if (items.length) {
+        extra = '<div class="lactions"><button type="button" class="btn" id="copy">Copy list</button><button type="button" class="btn" id="clear">Clear</button></div>' +
+          '<div class="copybox" id="copybox" hidden><label for="copytext">Select all and copy</label><textarea id="copytext" readonly></textarea></div>';
+      }
+    }
+    return '<div class="lhead">' +
+        '<button type="button" class="back" data-back>' + '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 6-6 6 6 6"></path></svg>All topics</button>' +
+        '<p class="leyebrow">' + eyebrow + '</p>' +
+        '<h2 class="ltitle">' + title + '</h2>' +
+        (desc ? '<p class="ldesc">' + desc + '</p>' : '') +
+        (v.kind !== 'saved' ? extra : '') +
+        '<p class="lstats"><b>' + fmt(items.length) + '</b> ' + (items.length === 1 ? 'passage' : 'passages') + ' · <b>' + fmt(verseCount(items)) + '</b> verses</p>' +
+        (v.kind !== 'saved' ? filterChips() : extra) +
+      '</div>' + bodyHTML(v, items);
+  }
+
+  /* ---------- Rendering and navigation ---------- */
+  function render() {
+    const home = view.kind === 'home';
+    $('#mast').hidden = !home;
+    $('#about').hidden = !home;
+    $('#main').innerHTML = home ? indexHTML('home') : listPage(view);
+    $('#btn-saved').setAttribute('aria-pressed', String(view.kind === 'saved'));
+    $('#scount').textContent = saved.size;
+  }
+
+  function go(v, keepScroll) {
+    if (view.kind === 'home') homeScroll = window.scrollY;
+    if (v.kind !== 'search') { $('#q').value = ''; prevView = null; }
+    view = v;
+    render();
+    window.scrollTo(0, v.kind === 'home' && keepScroll ? homeScroll : 0);
+  }
+
+  function openSheet() {
+    if (view.kind === 'topic') open.sheet = view.id.slice(0, 2);
+    $('#sheet-body').innerHTML = indexHTML('sheet');
+    $('#sheet').hidden = false;
+    $('#sheet').scrollTop = 0;
+    document.documentElement.classList.add('locked');
+    $('#sheet-close').focus({ preventScroll: true });
+  }
+  function closeSheet() {
+    if ($('#sheet').hidden) return;
+    $('#sheet').hidden = true;
+    document.documentElement.classList.remove('locked');
+  }
+
+  let toastTimer;
+  function toast(msg) {
+    const t = $('#toast');
+    t.textContent = msg;
+    t.hidden = false;
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => { t.hidden = true; }, 2600);
+  }
+
+  function copyList() {
+    const items = E.filter((e) => saved.has(e.id));
+    const text = 'Passages to read (ESV)\n\n' + items.map((e) => e.d + ': ' + e.t + '\n' + esvUrl(e.q)).join('\n\n');
+    const fallback = () => {
+      const box = $('#copybox');
+      if (!box) return;
+      box.hidden = false;
+      const ta = $('#copytext');
+      ta.value = text;
+      ta.focus();
+      ta.select();
+      toast('Copy the selected list');
+    };
+    try {
+      navigator.clipboard.writeText(text).then(() => toast('Copied ' + plural(items.length, 'passage', 'passages')), fallback);
+    } catch (_) { fallback(); }
+  }
+
+  let clearArmed = false, clearTimer;
+  function clearSaved(btn) {
+    if (!clearArmed) {
+      clearArmed = true;
+      btn.textContent = 'Tap again to clear';
+      clearTimer = setTimeout(() => { clearArmed = false; btn.textContent = 'Clear'; }, 3000);
+      return;
+    }
+    clearTimeout(clearTimer);
+    clearArmed = false;
+    saved.clear();
+    persist();
+    render();
+    toast('Saved list cleared');
+  }
+
+  document.addEventListener('click', (ev) => {
+    const t = ev.target;
+    if (!(t instanceof Element)) return;
+    const goEl = t.closest('[data-go]');
+    if (goEl) {
+      const [kind, id] = goEl.dataset.go.split(':');
+      closeSheet();
+      go(id ? { kind, id } : { kind });
+      return;
+    }
+    const acc = t.closest('[data-acc]');
+    if (acc) { toggleAcc(acc); return; }
+    if (t.closest('[data-back]')) { go({ kind: 'home' }, true); return; }
+    const grp = t.closest('.grp-head');
+    if (grp) {
+      const body = document.getElementById(grp.getAttribute('aria-controls'));
+      const on = grp.getAttribute('aria-expanded') !== 'true';
+      grp.setAttribute('aria-expanded', String(on));
+      body.hidden = !on;
+      const rowsEl = $('.grp-rows', body);
+      if (on && !rowsEl.childElementCount) rowsEl.innerHTML = (groupItems.get(body.id) || []).map(rowHTML).join('');
+      return;
+    }
+    const mk = t.closest('[data-more]');
+    if (mk) {
+      const items = groupItems.get(mk.dataset.more) || [];
+      mk.insertAdjacentHTML('beforebegin', items.slice(Number(mk.dataset.from)).map(rowHTML).join(''));
+      mk.remove();
+      return;
+    }
+    const rowHead = t.closest('.row-head');
+    if (rowHead) {
+      const row = rowHead.closest('.row'), body = $('.row-body', row);
+      const on = rowHead.getAttribute('aria-expanded') !== 'true';
+      rowHead.setAttribute('aria-expanded', String(on));
+      body.hidden = !on;
+      if (on && !body.childElementCount) body.innerHTML = detailHTML(byId.get(row.dataset.id));
+      return;
+    }
+    const sv = t.closest('[data-save]');
+    if (sv) {
+      const id = sv.dataset.save;
+      if (saved.has(id)) saved.delete(id); else saved.add(id);
+      persist();
+      const on = saved.has(id);
+      sv.setAttribute('aria-pressed', String(on));
+      sv.innerHTML = ICON_MARK + (on ? 'Saved' : 'Save');
+      const row = sv.closest('.row');
+      if (row) row.classList.toggle('is-saved', on);
+      $('#scount').textContent = saved.size;
+      return;
+    }
+    const ft = t.closest('[data-ftype]');
+    if (ft) { F.type = ft.dataset.ftype; render(); return; }
+    if (t.closest('[data-fjesus]')) { F.jesus = !F.jesus; render(); return; }
+    if (t.closest('[data-reset-f]')) { F.type = 'all'; F.jesus = false; render(); return; }
+    if (t.closest('#copy')) { copyList(); return; }
+    const clr = t.closest('#clear');
+    if (clr) { clearSaved(clr); return; }
+    if (t.closest('#btn-topics')) { openSheet(); return; }
+    if (t.closest('#sheet-close')) { closeSheet(); $('#btn-topics').focus({ preventScroll: true }); return; }
+    if (t.closest('#btn-saved')) {
+      if (view.kind === 'saved') go({ kind: 'home' }, true);
+      else go({ kind: 'saved' });
+    }
+  });
+
+  let qTimer;
+  $('#q').addEventListener('input', (ev) => {
+    clearTimeout(qTimer);
+    qTimer = setTimeout(() => {
+      const raw = ev.target.value.trim();
+      const toks = raw.toLowerCase().replace(/[–—]/g, '-').split(/\s+/).filter(Boolean);
+      if (toks.length) {
+        if (view.kind !== 'search') {
+          prevView = view;
+          if (view.kind === 'home') homeScroll = window.scrollY;
+        }
+        view = { kind: 'search', q: raw, toks };
+        render();
+        window.scrollTo(0, 0);
+      } else if (view.kind === 'search') {
+        view = prevView || { kind: 'home' };
+        prevView = null;
+        render();
+        window.scrollTo(0, view.kind === 'home' ? homeScroll : 0);
+      }
+    }, 160);
+  });
+  $('#q').addEventListener('keydown', (ev) => { if (ev.key === 'Enter') ev.target.blur(); });
+  document.addEventListener('keydown', (ev) => {
+    if (ev.key === 'Escape' && !$('#sheet').hidden) { closeSheet(); $('#btn-topics').focus({ preventScroll: true }); return; }
+    if (ev.key === '/' && !/^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement.tagName)) {
+      ev.preventDefault();
+      $('#q').focus();
+    }
+  });
+
+  let h = '';
+  try { h = decodeURIComponent(location.hash.slice(1)); } catch (_) { h = ''; }
+  const CAT_HASH = { 'one-another': 'oa', 'conflict': 'cf', 'unbelievers': 'un' };
+  if (SLUG[h]) view = { kind: 'topic', id: SLUG[h] };
+  else if (SITS.some((s) => s.id === h)) view = { kind: 'sit', id: h };
+  else if (h === 'key' || h === 'all' || h === 'saved') view = { kind: h };
+  else if (h === 'proverbs') view = { kind: 'prov' };
+  else if (CAT_HASH[h]) open.home = CAT_HASH[h];
+  render();
+})();
+</script>
+</body>
+</html>
